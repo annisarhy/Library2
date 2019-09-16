@@ -3,6 +3,7 @@ package com.example.library2;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -150,8 +151,10 @@ public class MainActivity extends AppCompatActivity {
             if (list.size() > 0) {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
-                Uri uri = Uri.fromFile(pdfFile);
+                Uri uri = FileProvider.getUriForFile(this,  "com.example.library2.fileprovider", pdfFile);
+
                 intent.setDataAndType(uri, "application/pdf");
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
                 startActivity(intent);
             }else{
